@@ -244,7 +244,7 @@ class Home extends React.Component {
         </ListItem>
         <Divider/>
         <div style={{height: '20px'}}/>
-        <Typography variant="h4" gutterBottom component="h2">
+        <Typography variant="h5" gutterBottom component="h2">
           About
         </Typography>
         <Typography component="ul" className={classes.chartContainer}>
@@ -259,7 +259,7 @@ class Home extends React.Component {
         <div style={{height: '20px'}}/>
         <Divider/>
         <div style={{height: '20px'}}/>
-        <Typography variant="h4" gutterBottom component="h2">
+        <Typography variant="h5" gutterBottom component="h2">
           Skills/Tech
         </Typography>
         <Typography component="ul" className={classes.chartContainer}>
@@ -312,7 +312,7 @@ class Social extends React.Component {
           </Typography>
         </ListItem>
         <div style={{height: '20px'}}/>
-        <Typography variant="h4" gutterBottom component="h2">
+        <Typography variant="h5" gutterBottom component="h2">
           Where to find me
         </Typography>
         <Typography component="ul" className={classes.chartContainer}>
