@@ -31,7 +31,7 @@ const data = [
 function SimpleLineChart() {
   return (
     // 99% per https://github.com/recharts/recharts/issues/172
-      <ResponsiveContainer width="99%" height={'80%'}>
+      <ResponsiveContainer minWidth="700px" width="99%" height={'80%'}>
         <AreaChart data={data}>
           <defs>
             <linearGradient id="colorSMA30" x1="0" y1="0" x2="0" y2="1">
@@ -90,15 +90,28 @@ class CustomTooltip extends React.Component {
     }
   };
 
+  getImgOfPage(label) {
+    if (label === '01/10/17') {
+      return "https://postimg.cc/hfM3Ltgm";
+    } else if (label === '01/11/17') {
+      return "https://postimg.cc/hfM3Ltgm";
+    } else if (label === '01/12/17') {
+      return "https://postimg.cc/hfM3Ltgm";
+    }
+  };
+
   render() {
     const { active, label, payload } = this.props;
     const show = !!(label === '01/10/17' || label === '01/11/17' || label === '01/12/17');
     if (show) {
       return (
-        <div style={{backgroundColor: 'white', padding: '20px', maxWidth: '300px'}}>
-          <h4 className="intro">{this.getIntroOfPage(label)}</h4>
-          <p className="desc">{this.getBodyOfPage(label)}</p>
-          <p>Click the node on the chart to view.</p>
+        <div style={{display:'flex', alignItems: 'center', justifyContent: 'space-between',backgroundColor: 'white', padding: '20px'}}>
+          <div style={{maxWidth: '300px'}}>
+            <h4 class={{justifyContent: 'center', textAlign: 'center'}}>{this.getIntroOfPage(label)}</h4>
+            <p className="desc">{this.getBodyOfPage(label)}</p>
+            <p>Click the node on the chart to view.</p>
+          </div>
+          <img style={{maxHeight: '200px'}} src={this.getImgOfPage(label)}/>
         </div>
       );
     }
