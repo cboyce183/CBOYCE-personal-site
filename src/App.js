@@ -151,7 +151,6 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    console.log(this.state.desktop)
     const { classes } = this.props;
     const { page } = this.state;
 
