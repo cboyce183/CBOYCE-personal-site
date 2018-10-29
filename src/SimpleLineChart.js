@@ -10,22 +10,23 @@ import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import ReferenceDot from 'recharts/lib/cartesian/ReferenceDot';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
+import Card from './card';
 
 const data = [
-  {date: '01/09/17', Commits_SMA30: 0, Commits_SMA90: 0, Difference: 0},
-  {date: '01/10/17', Commits_SMA30: 22, Commits_SMA90: (22/3), Difference: 22-(22/3)},
-  {date: '01/11/17', Commits_SMA30: 101, Commits_SMA90: (101+22)/3, Difference: 101-((101+22)/3)},
-  {date: '01/12/17', Commits_SMA30: 244, Commits_SMA90: (244+101+22)/3, Difference: 244-((244+101+22)/3)},
-  {date: '01/01/18', Commits_SMA30: 19, Commits_SMA90: (19+244+101)/3, Difference: 19-((19+244+101)/3)},
-  {date: '01/02/18', Commits_SMA30: 45, Commits_SMA90: (45+19+244)/3, Difference: 45-((45+19+244)/3)},
-  {date: '01/03/18', Commits_SMA30: 53, Commits_SMA90: (53+45+19)/3, Difference: 53-((53+45+19)/3)},
-  {date: '01/04/18', Commits_SMA30: 71, Commits_SMA90: (71+53+45)/3, Difference: 71-((71+53+45)/3)},
-  {date: '01/05/18', Commits_SMA30: 109, Commits_SMA90: (109+71+53)/3, Difference: 109-((109+71+53)/3)},
-  {date: '01/06/18', Commits_SMA30: 98, Commits_SMA90: (98+109+71)/3, Difference: 98-((98+109+71)/3)},
-  {date: '01/07/18', Commits_SMA30: 163, Commits_SMA90: (163+98+109)/3, Difference: 163-((163+98+109)/3)},
-  {date: '01/08/18', Commits_SMA30: 223, Commits_SMA90: (223+163+98)/3, Difference: 223-((223+163+98)/3)},
-  {date: '01/09/18', Commits_SMA30: 217, Commits_SMA90: (217+223+163)/3, Difference: 217-((217+223+163)/3)},
-  {date: '01/10/18', Commits_SMA30: 198, Commits_SMA90: (198+217+223)/3, Difference: 198-((198+217+223)/3)},
+  {date: '01/09/17', "Commits SMA(30)": 0, Total: 0},
+  {date: '01/10/17', "Commits SMA(30)": 22, Total: 22},
+  {date: '01/11/17', "Commits SMA(30)": 101, Total: (101+22)},
+  {date: '01/12/17', "Commits SMA(30)": 244, Total: (244+101+22)},
+  {date: '01/01/18', "Commits SMA(30)": 19, Total: (19+244+101+22)},
+  {date: '01/02/18', "Commits SMA(30)": 45, Total: (45+19+244+101+22)},
+  {date: '01/03/18', "Commits SMA(30)": 53, Total: (53+45+19+22+101+244)},
+  {date: '01/04/18', "Commits SMA(30)": 71, Total: (71+53+45+19+244+101+22)},
+  {date: '01/05/18', "Commits SMA(30)": 109, Total: (109+71+53+45+19+244+101+22)},
+  {date: '01/06/18', "Commits SMA(30)": 98, Total: (98+109+71+53+45+19+244+101+22)},
+  {date: '01/07/18', "Commits SMA(30)": 163, Total: (163+98+109+71+53+45+19+244+101+22)},
+  {date: '01/08/18', "Commits SMA(30)": 223, Total: (223+163+98+109+71+53+45+19+244+101+22)},
+  {date: '01/09/18', "Commits SMA(30)": 217, Total: (217+223+163+98+109+71+53+45+19+244+101+22)},
+  {date: '01/10/18', "Commits SMA(30)": 198, Total: (198+217+223+163+98+109+71+53+45+19+244+101+22)}
 ];
 
 function SimpleLineChart() {
@@ -51,18 +52,18 @@ function SimpleLineChart() {
               <stop offset="95%" stopColor="orange" stopOpacity={0.6}/>
             </linearGradient>
           </defs>
-          <XAxis dataKey="date" ><Label value="Date" position="insideLeft"/></XAxis>
-          <YAxis yAxisId="left"><Label value="Commits / unit" angle="-90" position="insideLeft"/></YAxis>
-          <YAxis yAxisId="right" orientation="right"><Label value="Difference / unit" angle="90" position="insideRight"/></YAxis>
+          <XAxis dataKey="date" ></XAxis>
+          <YAxis yAxisId="left"><Label value="Commits" angle="-90" position="insideLeft"/></YAxis>
+          <YAxis yAxisId="right" orientation="right"><Label value="Total" angle="90" position="insideRight"/></YAxis>
           <CartesianGrid vertical={false} strokeDasharray="3 3" />
           <Tooltip content={<CustomTooltip/>}/>
           <Legend />
-          <Area yAxisId="left" type="monotone" dataKey="Commits_SMA30" stroke="#82ca9d" fill="url(#colorSMA30)" fillOpacity={0.4}/>
-          <Area yAxisId="left" type="monotone" dataKey="Commits_SMA90" stroke="#f44242" fill="url(#colorSMA90)" fillOpacity={0.4}/>
-          <Area yAxisId="right" type="monotone" dataKey="Difference" stroke="#4171f4" fill="url(#colorNet)" fillOpacity={0.4} strokeDasharray="5 5" opacity={0.6}/>
-          <ReferenceDot onClick={() => {window.open('https://notesense.herokuapp.com/')}} r={8} yAxisId="right" y={14.666} x={'01/10/17'} fill="url(#colorPoint)" stroke="black" isFront={true}/>
-          <ReferenceDot onClick={() => {window.open('https://filenation.io/')}} r={8} yAxisId="right" y={60} x={'01/11/17'} fill="url(#colorPoint)" stroke="black" isFront={true}/>
-          <ReferenceDot onClick={() => {window.open('https://uncodejs.herokuapp.com/')}} r={8} yAxisId="right" y={121.666} x={'01/12/17'} fill="url(#colorPoint)" stroke="black" isFront={true}/>
+          <Area yAxisId="left" type="monotone" dataKey="Commits SMA(30)" stroke="#82ca9d" fill="url(#colorSMA30)" fillOpacity={0.4}/>
+          <Area yAxisId="right" type="monotone" dataKey="Total" stroke="#f44242" fill="url(#colorSMA90)" fillOpacity={0.4}/>
+          {/* <Area yAxisId="left" type="monotone" dataKey="Difference" stroke="#4171f4" fill="url(#colorNet)" fillOpacity={0.4} strokeDasharray="5 5" opacity={0.6}/> */}
+          <ReferenceDot onClick={() => {window.open('https://notesense.herokuapp.com/')}} r={8} yAxisId="left" y={22} x={'01/10/17'} fill="url(#colorPoint)" stroke="black" isFront={true}/>
+          <ReferenceDot onClick={() => {window.open('https://filenation.io/')}} r={8} yAxisId="left" y={101} x={'01/11/17'} fill="url(#colorPoint)" stroke="black" isFront={true}/>
+          <ReferenceDot onClick={() => {window.open('https://uncodejs.herokuapp.com/')}} r={8} yAxisId="left" y={244} x={'01/12/17'} fill="url(#colorPoint)" stroke="black" isFront={true}/>
         </AreaChart>
     </ResponsiveContainer>
   );
@@ -82,21 +83,31 @@ class CustomTooltip extends React.Component {
 
   getBodyOfPage(label) {
     if (label === '01/10/17') {
-      return "Study tool + YouTube video annotation app using React, Meteor.js, Chrome browser/extension tech.";
+      return "A study tool and YouTube video annotation app built using React, Meteor.js, Chrome browser/extension tech.";
     } else if (label === '01/11/17') {
       return "Store/send files to anyone via the IPFS de-centralized cloud file system. Major front end contributions using Angular 5, with Koa on the back.";
     } else if (label === '01/12/17') {
-      return "2nd place winner of the global Facebook Community hackathon, this app translates JavaScript into English/Spanish/Italian instructions. Built with React, Express, and MongoDB.";
+      return "The 2nd place winner of the global Facebook Community hackathon, this app translates JavaScript into English/Spanish/Italian instructions. Built with React, Express, and MongoDB.";
     }
   };
 
   getImgOfPage(label) {
     if (label === '01/10/17') {
-      return "https://postimg.cc/hfM3Ltgm";
+      return "/assets/younoteit.png";
     } else if (label === '01/11/17') {
-      return "https://postimg.cc/hfM3Ltgm";
+      return "/assets/DCLOUD.png";
     } else if (label === '01/12/17') {
-      return "https://postimg.cc/hfM3Ltgm";
+      return "/assets/UNCODE.png";
+    }
+  };
+
+  getTimeOfPage(label) {
+    if (label === '01/10/17') {
+      return "10/2017";
+    } else if (label === '01/11/17') {
+      return "11/2017";
+    } else if (label === '01/12/17') {
+      return "12/2017";
     }
   };
 
@@ -105,13 +116,8 @@ class CustomTooltip extends React.Component {
     const show = !!(label === '01/10/17' || label === '01/11/17' || label === '01/12/17');
     if (show) {
       return (
-        <div style={{display:'flex', alignItems: 'center', justifyContent: 'space-between',backgroundColor: 'white', padding: '20px'}}>
-          <div style={{maxWidth: '300px'}}>
-            <h4 class={{justifyContent: 'center', textAlign: 'center'}}>{this.getIntroOfPage(label)}</h4>
-            <p className="desc">{this.getBodyOfPage(label)}</p>
-            <p>Click the node on the chart to view.</p>
-          </div>
-          {/* <img style={{maxHeight: '200px'}} src={this.getImgOfPage(label)}/> */}
+        <div>
+          <Card t={this.getTimeOfPage(label)} src={this.getImgOfPage(label)} title={this.getIntroOfPage(label)} body={this.getBodyOfPage(label)}/>
         </div>
       );
     }

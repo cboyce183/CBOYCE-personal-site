@@ -48,6 +48,7 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
   },
   appBar: {
+    backgroundColor: '#353749',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -206,7 +207,7 @@ class Dashboard extends React.Component {
                   <ListItemIcon>
                     <DashboardIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Home" />
+                  <ListItemText primary="About Me" />
                 </ListItem>
 
                 <ListItem button onClick={this.setPage.bind(this, 'projects')}>
