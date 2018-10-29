@@ -111,7 +111,7 @@ class CustomTooltip extends React.Component {
             <p className="desc">{this.getBodyOfPage(label)}</p>
             <p>Click the node on the chart to view.</p>
           </div>
-          <img style={{maxHeight: '200px'}} src={this.getImgOfPage(label)}/>
+          {/* <img style={{maxHeight: '200px'}} src={this.getImgOfPage(label)}/> */}
         </div>
       );
     }
