@@ -61,9 +61,9 @@ function SimpleLineChart() {
           <Area yAxisId="left" type="monotone" dataKey="Commits SMA(30)" stroke="#82ca9d" fill="url(#colorSMA30)" fillOpacity={0.4}/>
           <Area yAxisId="right" type="monotone" dataKey="Total" stroke="#f44242" fill="url(#colorSMA90)" fillOpacity={0.4}/>
           {/* <Area yAxisId="left" type="monotone" dataKey="Difference" stroke="#4171f4" fill="url(#colorNet)" fillOpacity={0.4} strokeDasharray="5 5" opacity={0.6}/> */}
-          <ReferenceDot onClick={() => {window.open('https://notesense.herokuapp.com/')}} r={8} yAxisId="left" y={22} x={'01/10/17'} fill="url(#colorPoint)" stroke="black" isFront={true}/>
-          <ReferenceDot onClick={() => {window.open('https://filenation.io/')}} r={8} yAxisId="left" y={101} x={'01/11/17'} fill="url(#colorPoint)" stroke="black" isFront={true}/>
-          <ReferenceDot onClick={() => {window.open('https://uncodejs.herokuapp.com/')}} r={8} yAxisId="left" y={244} x={'01/12/17'} fill="url(#colorPoint)" stroke="black" isFront={true}/>
+          <ReferenceDot onClick={() => {window.open('https://notesense.herokuapp.com/')}} r={8} yAxisId="left" y={22} x={'01/10/17'} fill="orange" stroke="white" isFront={true}/>
+          <ReferenceDot onClick={() => {window.open('https://filenation.io/')}} r={8} yAxisId="left" y={101} x={'01/11/17'} fill="orange" stroke="white" isFront={true}/>
+          <ReferenceDot onClick={() => {window.open('https://uncodejs.herokuapp.com/')}} r={8} yAxisId="left" y={244} x={'01/12/17'} fill="orange" stroke="white" isFront={true}/>
         </AreaChart>
     </ResponsiveContainer>
   );
