@@ -349,7 +349,7 @@ class Home extends React.Component {
         <Divider/>
         <div style={{height: '20px'}}/>
         <ListItem>
-          {(this.props.desktop || window.innerWidth > 800) && <img style={{maxHeight: '300px', borderRadius: '150px'}} src="https://scontent.fbhx3-1.fna.fbcdn.net/v/t1.0-9/25289696_10210749777882336_1329429508566689566_n.jpg?_nc_cat=111&_nc_ht=scontent.fbhx3-1.fna&oh=1eaaac0658c684c194c621672775ea0f&oe=5C7A7AB7"/>}
+          {(this.props.desktop || window.innerWidth > 800) && <img style={{maxHeight: '200px', borderRadius: '100px'}} src="https://scontent.fbhx3-1.fna.fbcdn.net/v/t1.0-9/25289696_10210749777882336_1329429508566689566_n.jpg?_nc_cat=111&_nc_ht=scontent.fbhx3-1.fna&oh=1eaaac0658c684c194c621672775ea0f&oe=5C7A7AB7"/>}
           <Typography component="ul" className={classes.chartContainer}>
             <ul>
               <ListItem>{this.props.desktop && (<ListItemIcon><DoneIcon/></ListItemIcon>)}Hello there! I'm Charlie, a full stack JavaScript developer based in Greater London, previously based in Barcelona, currently working in the e-learning industry for a startup creating bespoke solutions to big name clients such as Coke-a-cola, and Bank of England.</ListItem>
