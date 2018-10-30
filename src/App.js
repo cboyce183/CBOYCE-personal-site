@@ -22,6 +22,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import DoneIcon from '@material-ui/icons/Done';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
@@ -29,6 +30,8 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import CodeIcon from '@material-ui/icons/Code';
 import StarsIcon from '@material-ui/icons/Stars';
 import SchoolIcon from '@material-ui/icons/School';
+import HomeIcon from '@material-ui/icons/Home';
+import AdvancedGridList from './gridList';
 
 require("../node_modules/github-card/dist/widget.js");
 const drawerWidth = 240;
@@ -114,7 +117,7 @@ const styles = theme => ({
 class Dashboard extends React.Component {
   state = {
     open: false,
-    page: localStorage.getItem("page") || 'home',
+    page: localStorage.getItem("page") || 'about',
     desktop: !this.mobilecheck()
   };
 
@@ -134,6 +137,9 @@ class Dashboard extends React.Component {
     const {classes} = this.props;
     if (page === 'home') {
       return (<Home classes={classes} desktop={this.state.desktop}/>);
+    }
+    if (page === 'about') {
+      return (<About classes={classes} desktop={this.state.desktop}/>);
     }
     if (page === 'social') {
       return (<Social classes={classes} desktop={this.state.desktop}/>);
@@ -205,6 +211,13 @@ class Dashboard extends React.Component {
               <div>
                 <ListItem button onClick={this.setPage.bind(this, 'home')}>
                   <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItem>
+
+                <ListItem button onClick={this.setPage.bind(this, 'about')}>
+                  <ListItemIcon>
                     <DashboardIcon />
                   </ListItemIcon>
                   <ListItemText primary="About Me" />
@@ -236,7 +249,7 @@ class Dashboard extends React.Component {
   }
 }
 
-class Home extends React.Component {
+class About extends React.Component {
   render() {
     const {classes} = this.props;
     return (
@@ -281,6 +294,73 @@ class Home extends React.Component {
           <SimpleTable />
           <div style={{height: '20px'}}/>
         </div>
+      </main>
+    );
+  }
+}
+
+class Home extends React.Component {
+  state = {
+    loading: true,
+    data: []
+  };
+
+  upser(ups) {
+    if (ups > 1000) {
+      return `${Math.round((ups/1000)*10)/10}k`
+    }
+    else return ups;
+  }
+
+  UNSAFE_componentWillMount() {
+    var p_a = new Promise(rslv => fetch('https://www.reddit.com/r/ProgrammerHumor/hot.json?sort=hot').then(r => r.json()).then(r => rslv(r)));
+    var p_b = new Promise(rslv => fetch('https://www.reddit.com/r/reactjs/hot.json?sort=hot').then(r => r.json()).then(r => rslv(r)));
+    var p_c = new Promise(rslv => fetch('https://www.reddit.com/r/javascript/hot.json?sort=hot').then(r => r.json()).then(r => rslv(r)));
+    Promise.all([p_a, p_b, p_c])
+      .then(r => r.map(el => el.data.children))
+      .then(r => r[0].concat(r[1]).concat(r[2]))
+      .then(r => r.map(el => el.data))
+      .then(r => r.filter(el => !el.stickied))
+      .then(r => r.filter(el => el.selftext || (el.url.includes('.jpg') || el.url.includes('.png') || el.url.includes('.jpeg'))))
+      .then(r => r.sort(function(a, b){return a.created-b.created}).slice(0,15))
+      .then(r => r.map(el => {
+        return {
+          ups: this.upser(el.ups),
+          title: el.title,
+          contentUrl: (el.url.includes('.jpg') || el.url.includes('.png') || el.url.includes('.jpeg')) && el.url || '/assets/reddit.png',
+          text: el.selftext || (el.url.includes('.jpg') || el.url.includes('.png') || el.url.includes('.jpeg')) && "Source: " + el.url || '. . . ',
+          thumbnail: el.thumbnail,
+          sub: el.subreddit_name_prefixed,
+          created: el.created_utc,
+          link: el.permalink
+        };
+      }))
+      .then(r => r.sort(function(a, b){return a.created-b.created}).slice(0,15))
+      .then(data => {
+        this.setState({loading: false, data})
+      });
+  }
+
+  render() {
+    const {classes} = this.props;
+    return (
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Divider/>
+        <div style={{height: '20px'}}/>
+        <ListItem>
+          {(this.props.desktop || window.innerWidth > 800) && <img style={{maxHeight: '300px', borderRadius: '150px'}} src="https://scontent.fbhx3-1.fna.fbcdn.net/v/t1.0-9/25289696_10210749777882336_1329429508566689566_n.jpg?_nc_cat=111&_nc_ht=scontent.fbhx3-1.fna&oh=1eaaac0658c684c194c621672775ea0f&oe=5C7A7AB7"/>}
+          <Typography component="ul" className={classes.chartContainer}>
+            <ul>
+              <ListItem>{this.props.desktop && (<ListItemIcon><DoneIcon/></ListItemIcon>)}Hello there! I'm Charlie, a full stack JavaScript developer based in Greater London, previously based in Barcelona, currently working in the e-learning industry for a startup creating bespoke solutions to big name clients such as Coke-a-cola, and Bank of England.</ListItem>
+              <ListItem>{this.props.desktop && (<ListItemIcon><DoneIcon/></ListItemIcon>)}On this site you can find some of the stuff ive been working on, as well as a few examples of what I do. Use the nav bar on the left to get around, or the custom reddit widget below for some light reading (and maybe laughs) around software engineering.</ListItem>
+              <ListItem style={{color:'#d83131'}}>{this.props.desktop && (<ListItemIcon><NotInterestedIcon style={{color:'#d83131'}}/></ListItemIcon>)}I am not currently looking for further professional opportunities.</ListItem>
+            </ul>
+          </Typography>
+        </ListItem>
+        <Divider/>
+        <div style={{height: '20px'}}/>
+        <AdvancedGridList tileData={this.state.data}/>
       </main>
     );
   }
