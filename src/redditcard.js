@@ -17,6 +17,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Divider from '@material-ui/core/Divider';
+const ReactMarkdown = require('react-markdown')
+
 
 const styles = theme => ({
   card: {
@@ -83,7 +85,7 @@ class RedditCard extends React.Component {
         />
         <CardContent>
           <Typography component="p">
-            {this.wraptxt(this.props.data.text)}
+            <ReactMarkdown source={this.wraptxt(this.props.data.text)}/>
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
@@ -109,7 +111,7 @@ class RedditCard extends React.Component {
             <Divider/>
             <div style={{height:'15px'}}/>
             <Typography paragraph>
-              {this.props.data.text}
+              <ReactMarkdown source={this.props.data.text}/>
             </Typography>
           </CardContent>
         </Collapse>
