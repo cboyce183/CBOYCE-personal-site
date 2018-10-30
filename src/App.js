@@ -328,7 +328,7 @@ class Home extends React.Component {
           ups: this.upser(el.ups),
           title: el.title,
           contentUrl: (el.url.includes('.jpg') || el.url.includes('.png') || el.url.includes('.jpeg')) && el.url || '/assets/reddit.png',
-          text: el.selftext || (el.url.includes('.jpg') || el.url.includes('.png') || el.url.includes('.jpeg')) && "Source: " + el.url || '. . . ',
+          text: this.decodeHtml(el.selftext) || (el.url.includes('.jpg') || el.url.includes('.png') || el.url.includes('.jpeg')) && this.decodeHtml("Source: " + el.url) || '. . . ',
           thumbnail: el.thumbnail,
           sub: el.subreddit_name_prefixed,
           created: el.created_utc,
@@ -339,6 +339,12 @@ class Home extends React.Component {
       .then(data => {
         this.setState({loading: false, data})
       });
+  }
+
+  decodeHtml(html) {
+      var txt = document.createElement("textarea");
+      txt.innerHTML = html;
+      return txt.value;
   }
 
   render() {
